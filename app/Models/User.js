@@ -15,6 +15,8 @@ class User extends Model {
         userInstance.password = await Hash.make(userInstance.password)
       }
     })
+
+    this.addHook('afterCreate', 'UserHook.sendNewUser')
   }
 
   /**

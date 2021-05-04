@@ -1,7 +1,6 @@
 'use strict'
 
 const Bet = use('App/Models/Bet')
-const User = use('App/Models/User')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -23,7 +22,7 @@ class BetController {
   async index ({ response, params, auth }) {
     try {
       const bets = await Bet.query()
-        .where({ game_id: params.game_id, user_id: auth.user.id })
+        .where({ game_id: params.games_id, user_id: auth.user.id })
         .with('user')
         .fetch()
       return bets
@@ -40,23 +39,23 @@ class BetController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response, auth }) {
+  async store ({ request, params, response, auth }) {
     try {
-      const user = await User.findOrFail('id', auth.user.id)
-      const { cart, totalPrice } = request.input('cart', 'totalPrice')
+      const { cart, totalPrice, minCartValue } = request.only(['cart', 'totalPrice'])
+
+      if (totalPrice < minCartValue) {
+        return response.status(401).send({ error: { message: 'Valor do carrinho inferior ao minimo!' } })
+      }
 
       const gamesToSave = []
 
       // verificação obsoleta.
       // será permitido o usuario realizar um jogo igual a um feito anteriormente (type and numbers).
-      for (const game in cart) {
-        if (totalPrice < game.min_cart_value) {
-          return
-        }
-        game.user_id = user.id
-        gamesToSave.push(game)
+      for (let i = 0; i < cart.length; i++) {
+        cart[i].game_id = Number(params.games_id)
+        cart[i].user_id = Number(auth.user.id)
+        gamesToSave.push(cart[i])
       }
-
       const gamesSave = await Bet.createMany(gamesToSave)
       return gamesSave
     } catch (err) {
@@ -79,7 +78,7 @@ class BetController {
   async show ({ params, response, auth }) {
     try {
       const bet = await Bet
-        .query().where({ id: params.id, game_id: params.game_id, user_id: auth.user.id })
+        .query().where({ id: params.id, game_id: params.games_id, user_id: auth.user.id })
         .with('game').fetch()
       return bet
     } catch (err) {
@@ -98,14 +97,13 @@ class BetController {
   async update ({ params, request, response, auth }) {
     try {
       const data = request.only(['numbers'])
-      const bet = await Bet
-        .query().where({ id: params.id, game_id: params.game_id, user_id: auth.user.id }).fetch()
-
+      const bet = await Bet.query().where('id', params.id).firstOrFail()
       bet.merge(data)
+
       await bet.save()
-      return
+      return bet
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Erro ao atualizar bet!' } })
+      return response.status(400).send({ error: { message: err.message } })
     }
   }
 
@@ -119,8 +117,7 @@ class BetController {
    */
   async destroy ({ params, response, auth }) {
     try {
-      const bet = await Bet
-        .query().where({ id: params.id, game_id: params.game_id, user_id: auth.user.id }).fetch()
+      const bet = await Bet.findByOrFail('id', params.id)
       await bet.delete()
       return
     } catch (err) {

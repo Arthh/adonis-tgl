@@ -41,6 +41,7 @@ class GameController {
         .only(['type', 'description', 'range', 'price', 'max_number', 'color', 'min_cart_value'])
 
       const game = await Game.create(data)
+
       return game
     } catch (err) {
       return response.status(err.status).send({ error: { message: 'Erro ao cadastrar game!' } })

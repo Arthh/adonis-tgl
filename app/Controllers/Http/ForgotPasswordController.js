@@ -26,6 +26,7 @@ class ForgotPasswordController {
             .subject('Recuperação de senha!')
         }
       )
+      return
     } catch (err) {
       return response.status(err.status).send({ error: { message: 'Erro! email correto?' } })
     }
@@ -48,6 +49,7 @@ class ForgotPasswordController {
       user.password = password
 
       await user.save()
+      return
     } catch (err) {
       return response.status(err.status).send({ error: { message: 'Algo deu errado ao resetar sua senha!' } })
     }
