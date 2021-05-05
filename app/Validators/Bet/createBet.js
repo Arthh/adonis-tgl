@@ -1,7 +1,5 @@
 'use strict'
 
-const Antl = use('Antl')
-
 class BetsCreateBet {
   get validateAll () {
     return true
@@ -12,10 +10,6 @@ class BetsCreateBet {
       cart: 'required',
       totalPrice: 'required'
     }
-  }
-
-  get messages () {
-    return Antl.list('validation')
   }
 }
 

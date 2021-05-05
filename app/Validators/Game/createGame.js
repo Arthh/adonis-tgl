@@ -1,7 +1,5 @@
 'use strict'
 
-const Antl = use('Antl')
-
 class GameCreateGame {
   get validateAll () {
     return true
@@ -17,10 +15,6 @@ class GameCreateGame {
       color: 'required',
       min_cart_value: 'required'
     }
-  }
-
-  get messages () {
-    return Antl.list('validation')
   }
 }
 

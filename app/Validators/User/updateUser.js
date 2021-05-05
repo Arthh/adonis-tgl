@@ -1,7 +1,5 @@
 'use strict'
 
-const Antl = use('Antl')
-
 class updateUser {
   get validateAll () {
     console.log('teste')
@@ -18,10 +16,6 @@ class updateUser {
       email: `unique:users,email,id,${userId}`,
       password: 'required'
     }
-  }
-
-  get messages () {
-    return Antl.list('validation')
   }
 }
 

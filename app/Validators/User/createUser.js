@@ -1,7 +1,5 @@
 'use strict'
 
-const Antl = use('Antl')
-
 class createUser {
   get validateAll () {
     return true
@@ -14,10 +12,6 @@ class createUser {
       // é necessario ser confirmed?
       password: 'required'
     }
-  }
-
-  get messages () {
-    return Antl.list('validation')
   }
 }
 

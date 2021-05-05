@@ -1,7 +1,5 @@
 'use strict'
 
-const Antl = use('Antl')
-
 class ForgotPasswordCreateForgot {
   get validateAll () {
     return true
@@ -12,10 +10,6 @@ class ForgotPasswordCreateForgot {
       email: 'required|email',
       redirect_url: 'required'
     }
-  }
-
-  get messages () {
-    return Antl.list('validation')
   }
 }
 

@@ -22,10 +22,11 @@ class BetController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ response, params, auth }) {
+  async index ({ response, auth }) {
     try {
+      console.log(auth.user.id)
       const bets = await Bet.query()
-        .where({ game_id: params.game_id, user_id: auth.user.id })
+        .where({ user_id: auth.user.id })
         .with('user')
         .fetch()
       return bets

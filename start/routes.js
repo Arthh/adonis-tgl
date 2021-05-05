@@ -30,7 +30,7 @@ Route.group(() => {
     ]]))
 
   // Bets
-  Route.get('games/bets/:game_id', 'BetController.index')
+  Route.get('games/bets/all', 'BetController.index')
   Route.get('games/bets/show/:id', 'BetController.show')
   Route.post('games/bets', 'BetController.store').validator('Bet/createBet')
   Route.put('games/bets/:id', 'BetController.store').validator('Bet/updateBet')

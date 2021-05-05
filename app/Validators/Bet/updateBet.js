@@ -1,7 +1,5 @@
 'use strict'
 
-const Antl = use('Antl')
-
 class BetsUpdateBet {
   get validateAll () {
     return true
@@ -12,10 +10,6 @@ class BetsUpdateBet {
       numbers: 'required',
       totalPrice: 'required'
     }
-  }
-
-  get messages () {
-    return Antl.list('validation')
   }
 }
 
