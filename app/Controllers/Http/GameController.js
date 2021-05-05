@@ -18,8 +18,10 @@ class GameController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ response }) {
+  async index ({ response, auth }) {
     try {
+      const user = auth.user
+      console.log(user)
       const games = await Game.all()
       return games
     } catch (err) {
