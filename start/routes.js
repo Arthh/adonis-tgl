@@ -33,6 +33,6 @@ Route.group(() => {
   Route.get('games/bets/all', 'BetController.index')
   Route.get('games/bets/show/:id', 'BetController.show')
   Route.post('games/bets', 'BetController.store').validator('Bet/createBet')
-  Route.put('games/bets/:id', 'BetController.store').validator('Bet/updateBet')
+  Route.put('games/bets/:id', 'BetController.update').validator('Bet/updateBet')
   Route.delete('games/bets/:id', 'BetController.destroy')
 }).middleware(['auth'])

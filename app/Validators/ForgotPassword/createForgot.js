@@ -1,14 +1,13 @@
 'use strict'
 
 class ForgotPasswordCreateForgot {
-  get validateAll () {
+  get validateAll() {
     return true
   }
 
-  get rules () {
+  get rules() {
     return {
-      email: 'required|email',
-      redirect_url: 'required'
+      email: 'required|email'
     }
   }
 }

@@ -7,6 +7,7 @@ const crypto = require('crypto')
 
 class ForgotPasswordController {
   async store ({ request, response }) {
+    return 'oi'
     try {
       const email = request.input('email')
       const user = await User.findByOrFail('email', email)
@@ -18,7 +19,7 @@ class ForgotPasswordController {
 
       await Mail.send(
         ['emails.forgot_password', 'emails.forgot_password-text'],
-        { email, token: user.token, link: `${request.input('redirect_url')}?token=${user.token}` },
+        { email, token: user.token, link: 'youtube.com.br' },
         message => {
           message
             .to(user.email)

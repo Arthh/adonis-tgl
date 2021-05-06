@@ -24,10 +24,9 @@ class BetController {
    */
   async index ({ response, auth }) {
     try {
-      console.log(auth.user.id)
       const bets = await Bet.query()
         .where({ user_id: auth.user.id })
-        .with('user')
+        .with('game')
         .fetch()
       return bets
     } catch (err) {
