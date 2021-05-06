@@ -1,15 +1,16 @@
 'use strict'
 
-class createForgot {
+class resetForgot {
   get validateAll () {
     return true
   }
 
   get rules () {
     return {
-      email: 'required|email'
+      token: 'required',
+      password: 'required'
     }
   }
 }
 
-module.exports = createForgot
+module.exports = resetForgot

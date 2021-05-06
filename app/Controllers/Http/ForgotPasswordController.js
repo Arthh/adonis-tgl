@@ -7,7 +7,6 @@ const crypto = require('crypto')
 
 class ForgotPasswordController {
   async store ({ request, response }) {
-    return 'oi'
     try {
       const email = request.input('email')
       const user = await User.findByOrFail('email', email)

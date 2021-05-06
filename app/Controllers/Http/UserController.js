@@ -12,9 +12,9 @@ class UserController {
     }
   }
 
-  async show ({ params, response }) {
+  async show ({ auth, response }) {
     try {
-      const user = await User.findByOrFail('id', params.id)
+      const user = await User.findByOrFail('id', auth.user.id)
       return user
     } catch (err) {
       return response.status(err.status).send({ error: { message: 'Erro ao buscar usuario!' } })

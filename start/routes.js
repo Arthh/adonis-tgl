@@ -7,8 +7,8 @@ const Route = use('Route')
 Route.post('users', 'UserController.store').validator('User/createUser')
 
 // User Routes | Reset/Update Pass
-Route.post('passwords', 'ForgotPasswordController.store').validator('ForgotPassword/createForgot')
-Route.put('passwords', 'ForgotPasswordController.update').validator('ForgotPassword/updateForgot')
+Route.post('passwords', 'ForgotPasswordController.store')
+Route.put('passwords', 'ForgotPasswordController.update')
 
 // Session routes
 Route.post('sessions', 'SessionController.store').validator('Session/createSession')
@@ -17,7 +17,7 @@ Route.post('sessions', 'SessionController.store').validator('Session/createSessi
 Route.group(() => {
   // User
   Route.put('users', 'UserController.update').validator('User/updateUser')
-  Route.get('users', 'UserController.show')
+  Route.get('users/myinfo', 'UserController.show')
   Route.get('users', 'UserController.index')
   Route.delete('users', 'UserController.destroy')
 
