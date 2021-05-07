@@ -16,7 +16,7 @@ Route.post('sessions', 'SessionController.store').validator('Session/createSessi
 // Auth Routes
 Route.group(() => {
   // User
-  Route.put('users', 'UserController.update').validator('User/updateUser')
+  Route.put('users', 'UserController.update')
   Route.get('users/myinfo', 'UserController.show')
   Route.get('users', 'UserController.index')
   Route.delete('users', 'UserController.destroy')

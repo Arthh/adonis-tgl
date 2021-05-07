@@ -32,11 +32,14 @@ class UserController {
     }
   }
 
-  async update ({ params, request, response }) {
+  async update ({ auth, request, response }) {
+	  console.log('entrei na rota')
     try {
-      const user = await User.findByOrFail('id', params.id)
+	  console.log('entrei no try')
+      const user = await User.findByOrFail('id', auth.user.id)
       const data = request.only(['name', 'email', 'password'])
-      user.merge(data)
+      console.log('user:', user)
+      user.merge(data)	    
       await user.save()
     } catch (err) {
       return response.status(err.status).send({ err: { message: 'Erro ao atualizar usuario!' } })

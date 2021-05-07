@@ -18,7 +18,7 @@ class ForgotPasswordController {
 
       await Mail.send(
         ['emails.forgot_password', 'emails.forgot_password-text'],
-        { email, token: user.token, link: 'youtube.com.br' },
+        { email, token: user.token, link: 'http://localhost:3000/reset-pass' },
         message => {
           message
             .to(user.email)
