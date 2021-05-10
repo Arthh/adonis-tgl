@@ -1,5 +1,5 @@
-'use strict'
 
+'use strict'
 const User = use('App/Models/User')
 const Bet = use('App/Models/Bet')
 const Game = use('App/Models/Game')
@@ -30,7 +30,7 @@ class BetController {
         .fetch()
       return bets
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Erro recuperar bets!' } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
@@ -68,7 +68,15 @@ class BetController {
 
         cart[i].user_id = userId
         gamesToSave.push(cart[i])
-        gamesFormatedForEmail.push({ type: game.type, numbers: cart[i].numbers, price: cart[i].price, day: cart[i].day })
+        const date = new Date(cart[i].day)
+        gamesFormatedForEmail.push(
+          {
+            type: game.type,
+            numbers: cart[i].numbers,
+            price: (cart[i].price),
+            day: date.toLocaleDateString()
+          }
+        )
       }
 
       const gamesSave = await Bet.createMany(gamesToSave)

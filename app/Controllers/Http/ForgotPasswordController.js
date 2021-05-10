@@ -28,7 +28,7 @@ class ForgotPasswordController {
       )
       return
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Erro! email correto?' } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 

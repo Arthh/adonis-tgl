@@ -8,7 +8,7 @@ class UserController {
       const users = await User.query().select('id', 'name', 'email').fetch()
       return users
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Erro ao recuperar games!' } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
@@ -17,7 +17,7 @@ class UserController {
       const user = await User.findByOrFail('id', auth.user.id)
       return user
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Erro ao buscar usuario!' } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
@@ -28,21 +28,19 @@ class UserController {
       const user = await User.create(data)
       return user
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Erro ao cadastrar' } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
   async update ({ auth, request, response }) {
-	  console.log('entrei na rota')
     try {
-	  console.log('entrei no try')
       const user = await User.findByOrFail('id', auth.user.id)
       const data = request.only(['name', 'email', 'password'])
       console.log('user:', user)
-      user.merge(data)	    
+      user.merge(data)
       await user.save()
     } catch (err) {
-      return response.status(err.status).send({ err: { message: 'Erro ao atualizar usuario!' } })
+      return response.status(err.status).send({ err: { message: err.message } })
     }
   }
 
@@ -51,7 +49,7 @@ class UserController {
       const user = await User.findByOrFail('id', params.id)
       await user.delete()
     } catch (err) {
-      return response.status(err.status).send({ err: { message: 'Erro ao deletar usuario!' } })
+      return response.status(err.status).send({ err: { message: err.message } })
     }
   }
 }
